@@ -1,5 +1,6 @@
 package org.pythonbyte.haveibeenkwned.service
 
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import kotlin.test.assertFalse
 
@@ -14,5 +15,10 @@ class HaveIBeenPwnedServiceTest {
     @Test
     fun testIsPasswordPwnedWhenFalse() {
         assertFalse( haveIBeenPwnedService.isPasswordPwned("fjrelwkfjrelkrgjf393498504358ejgkrjgr") )
+    }
+
+    @Test
+    fun testGetBreaches() {
+        assertTrue( haveIBeenPwnedService.getBreaches().size > 0 )
     }
 }
