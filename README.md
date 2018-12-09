@@ -1,6 +1,6 @@
 # HaveIBeenKwned
 
-A Kotlin library to access the haveibeenpwned.com API (https://haveibeenpwned.com/).
+A Kotlin interface to the haveibeenpwned.com API (https://haveibeenpwned.com/).
 
 ### Service ###
 
