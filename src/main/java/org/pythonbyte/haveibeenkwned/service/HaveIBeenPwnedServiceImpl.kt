@@ -2,8 +2,8 @@ package org.pythonbyte.haveibeenkwned.service
 
 import com.mcxiaoke.koi.HASH
 import org.json.JSONObject
-import org.pythonbyte.haveibeenkwned.base.json.JsonObject
-import org.pythonbyte.haveibeenkwned.base.util.PropertyReader
+import org.pythonbyte.crux.json.JsonObject
+import org.pythonbyte.crux.properties.PropertyReader
 import org.pythonbyte.haveibeenkwned.domain.Breach
 
 class HaveIBeenPwnedServiceImpl : HaveIBeenPwnedService {
