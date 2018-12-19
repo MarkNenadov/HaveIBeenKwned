@@ -56,7 +56,7 @@
         </dependency>
         <dependency>
             <groupId>org.pythonbyte</groupId>
-            <artifactId>pythonbyte-crux</artifactId>
+            <artifactId>pythonbyte-krux</artifactId>
             <version>0.1</version>
         </dependency>
     </dependencies>

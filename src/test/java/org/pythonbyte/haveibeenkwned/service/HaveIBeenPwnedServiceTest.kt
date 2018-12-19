@@ -21,4 +21,10 @@ class HaveIBeenPwnedServiceTest {
     fun testGetBreaches() {
         assertTrue( haveIBeenPwnedService.getBreaches().size > 0 )
     }
+
+    @Test
+    fun testGetBreachesByEmail() {
+        val breaches = haveIBeenPwnedService.getBreaches("bob@gmail.com")
+        assertTrue( breaches.size > 0 )
+    }
 }

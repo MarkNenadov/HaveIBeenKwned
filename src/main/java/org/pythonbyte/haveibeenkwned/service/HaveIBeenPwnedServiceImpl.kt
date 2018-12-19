@@ -2,9 +2,9 @@ package org.pythonbyte.haveibeenkwned.service
 
 import com.mcxiaoke.koi.HASH
 import org.json.JSONObject
-import org.pythonbyte.crux.json.JsonObject
-import org.pythonbyte.crux.properties.PropertyReader
 import org.pythonbyte.haveibeenkwned.domain.Breach
+import org.pythonbyte.krux.json.JsonObject
+import org.pythonbyte.krux.properties.PropertyReader
 
 class HaveIBeenPwnedServiceImpl : HaveIBeenPwnedService {
     private val propertiesFile = "/haveibeenkwned.properties"
@@ -19,6 +19,16 @@ class HaveIBeenPwnedServiceImpl : HaveIBeenPwnedService {
 
         val response = khttp.get(baseUrl + passwordHash)
         return response.text.contains(passwordHash)
+    }
+
+    override fun getBreaches(emailAddress: String): List<Breach> {
+        val baseUrl = propertyReader.get("haveibeenkwned.emailAddresses.baseUrl")
+
+        val response = khttp.get(baseUrl + emailAddress)
+
+        val breachJsonObjects = response.jsonArray.map { jsonObject -> JsonObject( jsonObject as JSONObject ) }
+
+        return breachJsonObjects.map { breachJsonObject -> Breach.createFromJson( breachJsonObject ) }
     }
 
     override fun getVersion(): Int {

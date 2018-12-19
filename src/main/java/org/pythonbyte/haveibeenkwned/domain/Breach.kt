@@ -1,6 +1,6 @@
 package org.pythonbyte.haveibeenkwned.domain
 
-import org.pythonbyte.crux.json.JsonObject
+import org.pythonbyte.krux.json.JsonObject
 
 class Breach {
     var name: String = ""
