@@ -13,3 +13,7 @@ interface HaveIBeenPwnedService {
     fun getVersion(): Int
 }
 ```
+
+### Releases ###
+
+* [https://github.com/MarkNenadov/HaveIBeenKwned/releases/tag/v0.1](v0.1)
