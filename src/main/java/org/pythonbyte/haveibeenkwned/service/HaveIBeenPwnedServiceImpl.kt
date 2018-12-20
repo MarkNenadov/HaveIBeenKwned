@@ -1,8 +1,8 @@
 package org.pythonbyte.haveibeenkwned.service
 
-import com.mcxiaoke.koi.HASH
 import org.json.JSONObject
 import org.pythonbyte.haveibeenkwned.domain.Breach
+import org.pythonbyte.krux.crypto.HashUtils
 import org.pythonbyte.krux.json.JsonObject
 import org.pythonbyte.krux.properties.PropertyReader
 
@@ -11,7 +11,7 @@ class HaveIBeenPwnedServiceImpl : HaveIBeenPwnedService {
     private val propertyReader = PropertyReader(propertiesFile)
 
     override fun isPasswordPwned(password: String): Boolean {
-        return isHashPwned(HASH.sha1(password))
+        return isHashPwned(HashUtils.sha1(password))
     }
 
     override fun isHashPwned(passwordHash: String): Boolean {
