@@ -2,6 +2,8 @@
 
 A Kotlin interface to the haveibeenpwned.com API (https://haveibeenpwned.com/).
 
+NOTE: This project is broken until support for V3 API is introduced.
+
 ### Service ###
 
 ```
