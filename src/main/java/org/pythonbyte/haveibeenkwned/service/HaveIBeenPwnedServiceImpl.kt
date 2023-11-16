@@ -26,24 +26,24 @@ class HaveIBeenPwnedServiceImpl : HaveIBeenPwnedService {
 
         val response = khttp.get(baseUrl + emailAddress)
 
-        val breachJsonObjects = response.jsonArray.map { jsonObject -> JsonObject( jsonObject as JSONObject ) }
+        val breachJsonObjects = response.jsonArray.map { jsonObject -> JsonObject(jsonObject as JSONObject) }
 
-        return breachJsonObjects.map { breachJsonObject -> Breach.createFromJson( breachJsonObject ) }
+        return breachJsonObjects.map { breachJsonObject -> Breach.createFromJson(breachJsonObject) }
     }
 
     override fun getVersion(): Int {
         return 2
     }
 
-    override fun getBreaches() : List<Breach> {
+    override fun getBreaches(): List<Breach> {
         val result = mutableListOf<Breach>()
-        val baseUrl = propertyReader.get( "haveibeenkwned.base.baseUrl" )
+        val baseUrl = propertyReader.get("haveibeenkwned.base.baseUrl")
 
-        val response = khttp.get( baseUrl + "breaches" )
-        response.jsonArray.forEach{
-            result.add( Breach.createFromJson( JsonObject( it as JSONObject) ) )
+        val response = khttp.get(baseUrl + "breaches")
+        response.jsonArray.forEach {
+            result.add(Breach.createFromJson(JsonObject(it as JSONObject)))
         }
 
-        return result;
+        return result
     }
 }

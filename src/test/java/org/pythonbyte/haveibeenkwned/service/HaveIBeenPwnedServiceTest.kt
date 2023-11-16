@@ -9,22 +9,22 @@ class HaveIBeenPwnedServiceTest {
 
     @Test
     fun testIsPasswordPwnedWhenTrue() {
-        assertFalse( haveIBeenPwnedService.isPasswordPwned("password") )
+        assertFalse(haveIBeenPwnedService.isPasswordPwned("password"))
     }
 
     @Test
     fun testIsPasswordPwnedWhenFalse() {
-        assertFalse( haveIBeenPwnedService.isPasswordPwned("fjrelwkfjrelkrgjf393498504358ejgkrjgr") )
+        assertFalse(haveIBeenPwnedService.isPasswordPwned("fjrelwkfjrelkrgjf393498504358ejgkrjgr"))
     }
 
     @Test
     fun testGetBreaches() {
-        assertTrue( haveIBeenPwnedService.getBreaches().size > 0 )
+        assertTrue(haveIBeenPwnedService.getBreaches().size > 0)
     }
 
     @Test
     fun testGetBreachesByEmail() {
         val breaches = haveIBeenPwnedService.getBreaches("bob@gmail.com")
-        assertTrue( breaches.size > 0 )
+        assertTrue(breaches.size > 0)
     }
 }

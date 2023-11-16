@@ -12,7 +12,7 @@ class Breach {
     var pwnCount: Int = 0
 
     companion object {
-        fun createFromJson( jsonObject: JsonObject) : Breach {
+        fun createFromJson(jsonObject: JsonObject): Breach {
             val breach = Breach()
 
             breach.name = jsonObject.getString("Name")
@@ -23,7 +23,7 @@ class Breach {
             breach.breachDate = jsonObject.getString("BreachDate")
             breach.pwnCount = jsonObject.getInt("PwnCount")
 
-            return breach;
+            return breach
         }
     }
 }
