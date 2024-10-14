@@ -41,14 +41,10 @@ class HaveIBeenPwnedServiceImpl : HaveIBeenPwnedService {
             baseUrl + "breachedaccount/$emailAddress",
             generateHeaders(),
         )
-        try {
-            val response = sendRequest(request)
-            val jsonArray = response.getJsonArray()
-            return jsonArray.map {
-                Breach.fromJson(it)
-            }
-        } catch (e: JSONException) { // this is dumb, but need to fix krux's handling
-            return listOf()
+        val response = sendRequest(request)
+        val jsonArray = response.getJsonArray()
+        return jsonArray.map {
+            Breach.fromJson(it)
         }
     }
 
