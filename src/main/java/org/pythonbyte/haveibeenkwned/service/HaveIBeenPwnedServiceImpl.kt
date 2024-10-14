@@ -1,10 +1,10 @@
 package org.pythonbyte.haveibeenkwned.service
 
 import com.squareup.okhttp.Headers
+import org.json.JSONException
+import org.pythonbyte.haveibeenkwned.domain.Breach
 import org.pythonbyte.krux.crypto.HashUtils.sha1
-import org.pythonbyte.krux.http.HttpResponse
-import org.pythonbyte.krux.http.buildGetRequest
-import org.pythonbyte.krux.http.sendRequest
+import org.pythonbyte.krux.http.*
 import org.pythonbyte.krux.properties.PropertyReader
 
 class HaveIBeenPwnedServiceImpl : HaveIBeenPwnedService {
@@ -22,11 +22,36 @@ class HaveIBeenPwnedServiceImpl : HaveIBeenPwnedService {
         val restOfHash = passwordHash.replaceFirst(firstFiveOfHash, "").uppercase()
 
         val request = buildGetRequest(baseUrl + firstFiveOfHash, Headers.Builder().build())
-        val response = HttpResponse(sendRequest(request).getResponse())
-        val responseText = String(response.getBytes())
+        val responseText = String(sendRequest(request).getBytes())
 
         return responseText.contains(restOfHash)
     }
+
+    private fun generateHeaders(): Headers {
+        return Headers.Builder().apply {
+            add("user-agent", "HaveIBeenKwned (Kotlin)")
+            add("hibp-api-key", propertyReader.get("haveibeenkwned.v3.apiKey") )
+            add("Content-Type", "application/json")
+        }.build()
+    }
+
+    override fun breaches(emailAddress: String): List<Breach> {
+        val baseUrl = propertyReader.get("haveibeenkwned.v3.baseUrl")
+        val request = buildGetRequest(
+            baseUrl + "breachedaccount/$emailAddress",
+            generateHeaders(),
+        )
+        try {
+            val response = sendRequest(request)
+            val jsonArray = response.getJsonArray()
+            return jsonArray.map {
+                Breach.fromJson(it)
+            }
+        } catch (e: JSONException) { // this is dumb, but need to fix krux's handling
+            return listOf()
+        }
+    }
+
 
     override fun getVersion() = 2
 }
