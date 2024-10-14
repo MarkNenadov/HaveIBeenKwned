@@ -53,5 +53,5 @@ class HaveIBeenPwnedServiceImpl : HaveIBeenPwnedService {
     }
 
 
-    override fun getVersion() = 2
+    override fun getVersion() = 3
 }
