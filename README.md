@@ -2,6 +2,8 @@
 
 A Kotlin interface to the haveibeenpwned.com API (https://haveibeenpwned.com/).
 
+To use V3 endpoints (for instances breaches()), you will need to [subscribe to an API key](https://haveibeenpwned.com/API/Key) and put it in haveibeenkwned.properties. 
+
 ### Service ###
 
 ```

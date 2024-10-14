@@ -1,7 +1,6 @@
 package org.pythonbyte.haveibeenkwned.service
 
 import com.squareup.okhttp.Headers
-import org.json.JSONException
 import org.pythonbyte.haveibeenkwned.domain.Breach
 import org.pythonbyte.krux.crypto.HashUtils.sha1
 import org.pythonbyte.krux.http.*
