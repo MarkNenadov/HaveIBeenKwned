@@ -1,9 +1,10 @@
 package org.pythonbyte.haveibeenkwned.service
 
-import org.json.JSONObject
-import org.pythonbyte.haveibeenkwned.domain.Breach
-import org.pythonbyte.krux.crypto.HashUtils
-import org.pythonbyte.krux.json.JsonObject
+import com.squareup.okhttp.Headers
+import org.pythonbyte.krux.crypto.HashUtils.sha1
+import org.pythonbyte.krux.http.HttpResponse
+import org.pythonbyte.krux.http.buildGetRequest
+import org.pythonbyte.krux.http.sendRequest
 import org.pythonbyte.krux.properties.PropertyReader
 
 class HaveIBeenPwnedServiceImpl : HaveIBeenPwnedService {
@@ -11,39 +12,21 @@ class HaveIBeenPwnedServiceImpl : HaveIBeenPwnedService {
     private val propertyReader = PropertyReader(propertiesFile)
 
     override fun isPasswordPwned(password: String): Boolean {
-        return isHashPwned(HashUtils.sha1(password))
+        return isHashPwned(password.sha1())
     }
 
     override fun isHashPwned(passwordHash: String): Boolean {
         val baseUrl = propertyReader.get("haveibeenkwned.passwords.baseUrl")
 
-        val response = khttp.get(baseUrl + passwordHash)
-        return response.text.contains(passwordHash)
+        val firstFiveOfHash = passwordHash.take(5)
+        val restOfHash = passwordHash.replaceFirst(firstFiveOfHash, "").uppercase()
+
+        val request = buildGetRequest(baseUrl + firstFiveOfHash, Headers.Builder().build())
+        val response = HttpResponse(sendRequest(request).getResponse())
+        val responseText = String(response.getBytes())
+
+        return responseText.contains(restOfHash)
     }
 
-    override fun getBreaches(emailAddress: String): List<Breach> {
-        val baseUrl = propertyReader.get("haveibeenkwned.emailAddresses.baseUrl")
-
-        val response = khttp.get(baseUrl + emailAddress)
-
-        val breachJsonObjects = response.jsonArray.map { jsonObject -> JsonObject(jsonObject as JSONObject) }
-
-        return breachJsonObjects.map { breachJsonObject -> Breach.createFromJson(breachJsonObject) }
-    }
-
-    override fun getVersion(): Int {
-        return 2
-    }
-
-    override fun getBreaches(): List<Breach> {
-        val result = mutableListOf<Breach>()
-        val baseUrl = propertyReader.get("haveibeenkwned.base.baseUrl")
-
-        val response = khttp.get(baseUrl + "breaches")
-        response.jsonArray.forEach {
-            result.add(Breach.createFromJson(JsonObject(it as JSONObject)))
-        }
-
-        return result
-    }
+    override fun getVersion() = 2
 }

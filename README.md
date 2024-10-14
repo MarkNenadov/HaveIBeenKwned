@@ -2,7 +2,7 @@
 
 A Kotlin interface to the haveibeenpwned.com API (https://haveibeenpwned.com/).
 
-NOTE: This project is broken until support for V3 API is introduced.
+NOTE: I dropped breaches support until I have a chance to introduce API v3 support.
 
 ### Service ###
 
@@ -10,8 +10,6 @@ NOTE: This project is broken until support for V3 API is introduced.
 interface HaveIBeenPwnedService {
     fun isPasswordPwned(password: String): Boolean
     fun isHashPwned(passwordHash: String): Boolean
-    fun getBreaches() : List<Breach>
-    fun getBreaches(emailAddress: String) : List<Breach>
     fun getVersion(): Int
 }
 ```
