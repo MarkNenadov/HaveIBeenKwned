@@ -16,4 +16,4 @@ interface HaveIBeenPwnedService {
 
 ### Releases ###
 
-* [https://github.com/MarkNenadov/HaveIBeenKwned/releases/tag/v0.1](v0.1)
+* [https://github.com/MarkNenadov/HaveIBeenKwned/releases/tag/v0.2](v0.2)
