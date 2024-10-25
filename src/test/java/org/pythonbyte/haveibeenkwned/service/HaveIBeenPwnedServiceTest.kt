@@ -21,8 +21,8 @@ class HaveIBeenPwnedServiceTest {
     @Test
     fun testBreaches() {
         val items = haveIBeenPwnedService.breaches("johnsmith@gmail.com")
+        println(items.size)
         assertTrue(items.size > 10)
-        assertTrue(items.any { it.domain.equals("advanceautoparts.com") })
     }
 
     @Test

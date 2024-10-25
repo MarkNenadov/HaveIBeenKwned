@@ -13,7 +13,7 @@
     <description>A Kotlin interface to the haveibeenpwned.com API</description>
 
     <properties>
-        <kotlin.version>1.9.20</kotlin.version>
+        <kotlin.version>2.0.21</kotlin.version>
     </properties>
 
     <repositories>
@@ -27,7 +27,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.3.2</version>
+            <version>5.11.3</version>
             <scope>test</scope>
         </dependency>
 
@@ -40,7 +40,7 @@
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20231013</version>
+            <version>20240303</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
