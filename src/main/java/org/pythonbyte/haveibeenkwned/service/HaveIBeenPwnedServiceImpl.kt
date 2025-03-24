@@ -20,19 +20,20 @@ class HaveIBeenPwnedServiceImpl : HaveIBeenPwnedService {
         val firstFiveOfHash = passwordHash.take(5)
         val restOfHash = passwordHash.replaceFirst(firstFiveOfHash, "").uppercase()
 
-        val request = buildGetRequest(baseUrl + firstFiveOfHash, Headers.Builder().build())
-        val responseText = String(sendRequest(request).getBytes())
+        val request = buildGetRequest(baseUrl + firstFiveOfHash, buildHeaders(emptyMap()))
+        val responseText = String(sendRequest(request!!).getBytes())
 
         return responseText.contains(restOfHash)
     }
 
-    private fun generateHeaders(): Headers {
-        return Headers.Builder().apply {
-            add("user-agent", "HaveIBeenKwned (Kotlin)")
-            add("hibp-api-key", propertyReader.get("haveibeenkwned.v3.apiKey") )
-            add("Content-Type", "application/json")
-        }.build()
-    }
+    private fun generateHeaders(): Headers =
+        buildHeaders(
+            mapOf(
+                "user-agent" to "HaveIBeenKwned (Kotlin)",
+                "hibp-api-key" to propertyReader.get("haveibeenkwned.v3.apiKey"),
+                "Content-Type" to "application/json",
+            )
+        )
 
     override fun breaches(emailAddress: String): List<Breach> {
         val baseUrl = propertyReader.get("haveibeenkwned.v3.baseUrl")
@@ -40,7 +41,7 @@ class HaveIBeenPwnedServiceImpl : HaveIBeenPwnedService {
             baseUrl + "breachedaccount/$emailAddress",
             generateHeaders(),
         )
-        val response = sendRequest(request)
+        val response = sendRequest(request!!)
         val jsonArray = response.getJsonArray()
         return jsonArray.map {
             Breach.fromJson(it)
