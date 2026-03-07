@@ -1,0 +1,14 @@
+# Build output
+target/
+
+# macOS
+.DS_Store
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Local test credentials (never commit real API keys)
+src/test/resources/haveibeenkwned.properties

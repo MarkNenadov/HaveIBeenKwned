@@ -18,12 +18,12 @@ class HaveIBeenPwnedServiceImpl : HaveIBeenPwnedService {
         val baseUrl = propertyReader.get("haveibeenkwned.passwords.baseUrl")
 
         val firstFiveOfHash = passwordHash.take(5)
-        val restOfHash = passwordHash.replaceFirst(firstFiveOfHash, "").uppercase()
+        val restOfHash = passwordHash.substring(5).uppercase()
 
         val request = buildGetRequest(baseUrl + firstFiveOfHash, buildHeaders(emptyMap()))
         val responseText = String(sendRequest(request!!).getBytes())
 
-        return responseText.contains(restOfHash)
+        return responseText.lines().any { it.startsWith("$restOfHash:") }
     }
 
     private fun generateHeaders(): Headers =
